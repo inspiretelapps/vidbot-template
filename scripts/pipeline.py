@@ -11,6 +11,7 @@ import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
+import transcript_service
 
 ROOT = Path(__file__).resolve().parents[1]
 MODELS = ('opencode/gemini-3.5-flash-lite', 'opencode/deepseek-v4.1-flash', 'opencode/gemini-3-flash')
@@ -74,7 +75,7 @@ def normalize_transcript(rows):
     return normalized
 
 
-def transcript(video_id, language='en', root=ROOT):
+def direct_transcript(video_id, language='en', root=ROOT):
     if not ID.fullmatch(video_id):
         raise ValueError('Invalid video ID')
     supplied = root / 'transcripts' / f'{video_id}.json'
@@ -99,6 +100,19 @@ def transcript(video_id, language='en', root=ROOT):
                  'text': ''.join(segment.get('utf8', '') for segment in event.get('segs', []))}
                 for event in document.get('events', [])]
         return normalize_transcript(rows), 'yt-dlp'
+
+
+def transcript(video_id, language='en', root=ROOT):
+    try:
+        return direct_transcript(video_id, language, root)
+    except (ValueError, RuntimeError, subprocess.TimeoutExpired):
+        # Invalid local uploads should be fixed, not replaced by a paid fetch.
+        if not ID.fullmatch(video_id) or (root / 'transcripts' / f'{video_id}.json').exists():
+            raise
+        key = os.environ.get('SUPADATA_API_KEY', '').strip()
+        if not key:
+            raise ValueError('YouTube captions unavailable from this runner. Add optional SUPADATA_API_KEY or upload a transcript and retry.') from None
+        return normalize_transcript(transcript_service.fetch(video_id, language, key)), 'supadata-native'
 
 
 def metadata(entry):
@@ -180,7 +194,7 @@ Use increasing timestamps from the supplied transcript, within its bounds. Choos
         env.update({'XDG_CONFIG_HOME': runtime + '/config', 'XDG_DATA_HOME': runtime + '/data',
                     'XDG_CACHE_HOME': runtime + '/cache', 'OPENCODE_CONFIG': str(root / 'opencode.json'),
                     'OPENCODE_DISABLE_CLAUDE_CODE': 'true', 'CI': 'true'})
-        proc = subprocess.run([str(root / 'node_modules/.bin/opencode'), 'run', '--model', model,
+        proc = subprocess.run([str(root / 'node_modules/.bin/opencode'), 'run', '--pure', '--model', model,
                                '--agent', 'summarizer', '--format', 'json'], input=prompt,
                               capture_output=True, text=True, timeout=300, cwd=runtime, env=env)
     if proc.returncode:

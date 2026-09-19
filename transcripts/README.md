@@ -1,6 +1,6 @@
 # When YouTube does not supply captions
 
-The app tries `youtube-transcript`, then yt-dlp. YouTube may block cloud runners or a video may have no available captions. A failed video is never marked complete or summarized from its title alone.
+The app tries `youtube-transcript`, then yt-dlp, then optional Supadata if its key is configured. YouTube may block cloud runners or a video may have no available captions. A failed video is never marked complete or summarized from its title alone.
 
 You can supply a transcript yourself:
 

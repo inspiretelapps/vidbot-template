@@ -65,12 +65,14 @@ jobs:
         if: inputs.mode == 'Check YouTube captions'
         env:
           TEST_VIDEO: ${{ inputs.test_video }}
+          SUPADATA_API_KEY: ${{ secrets.SUPADATA_API_KEY }}
         run: python scripts/pipeline.py --transcript-check "$TEST_VIDEO"
       - name: Fetch transcripts and generate summaries
         id: update
         if: inputs.mode == 'Update library'
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          SUPADATA_API_KEY: ${{ secrets.SUPADATA_API_KEY }}
           PLAYLIST_URL: ${{ inputs.playlist_url }}
           MODEL: ${{ inputs.model }}
           MAX_VIDEOS: ${{ inputs.max_videos }}

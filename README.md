@@ -11,7 +11,8 @@ Turn a YouTube playlist into a searchable website with summaries, takeaways, and
 3. **Save the key securely.** In **your copy** on GitHub, open **Settings → Secrets and variables → Actions → New repository secret**. Name it `OPENCODE_API_KEY` and paste your key as the value. Never put it in a file or commit it.
 4. **Enable your website.** Open **Settings → Pages**. Under **Build and deployment**, set **Source** to **GitHub Actions**. You do not need to create a deployment branch.
 5. **Run your first update.** Open **Actions → Update library → Run workflow**. If GitHub asks you to enable workflows, enable them. Leave the branch on `main`. Paste your playlist link into **YouTube playlist link**, select a model, choose **1** video for your first test, and click **Run workflow**.
-6. **Open your website.** Wait for the workflow to finish. The deployment link appears in the run, or open **Settings → Pages → Visit site**. It will normally be `https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/`.
+6. **If captions are blocked, add the fallback key.** A live test on GitHub’s runner failed to retrieve captions even though the same video worked locally. For unattended retrieval, create a [Supadata account](https://supadata.ai/) and add its key as a second repository secret named `SUPADATA_API_KEY`. It is used only after both free caption tools fail. This may incur transcript-service charges. You can instead upload transcripts manually as described below.
+7. **Open your website.** Wait for the workflow to finish. The deployment link appears in the run, or open **Settings → Pages → Visit site**. It will normally be `https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/`.
 
 For later updates, use the refresh icon on your website. It opens GitHub's **Update library** page: sign in as the repository owner, click **Run workflow**, and leave the playlist field blank to reuse it. The public website cannot spend your API credits on its own. Readers need only the website link.
 
@@ -31,17 +32,17 @@ The workflow selection determines the model for that run. Existing summaries are
 
 - **Update library:** scan the saved playlist, retrieve captions, summarize up to your selected limit, save the results, and publish the site.
 - **Publish website only:** publish the current library without an API key or model call. Useful for testing setup or website changes.
-- **Check YouTube captions:** test a video's captions from GitHub's runner, without an API key, AI charge, or website change. Paste the 11-character video ID from its YouTube URL into the test field.
+- **Check YouTube captions:** test a video's captions from GitHub's runner, without an OpenCode key, model call, or website change. If you have set `SUPADATA_API_KEY`, the fallback can consume transcript-service credits. Paste the 11-character video ID from its YouTube URL into the test field.
 
 No cron jobs, WhatsApp, database account, GitHub app installation, Vercel account, or personal access token is required.
 
 ## What happens if captions fail?
 
-YouTube sometimes blocks cloud servers, and some videos have no captions in the configured language. This app first tries the `youtube-transcript` npm package, then yt-dlp. Neither guarantees access.
+YouTube sometimes blocks cloud servers, and some videos have no captions in the configured language. This app first tries the `youtube-transcript` npm package, then yt-dlp. Neither guarantees access. If `SUPADATA_API_KEY` is configured, it next requests existing captions through [Supadata](https://docs.supadata.ai/get-transcript). The fallback uses `mode=native`, so it does not automatically generate speech-to-text audio transcripts.
 
 A failed video remains available for retry. Successful summaries are saved and published even if another video fails; the workflow then shows a failure status so you know to read its summary. It never invents a summary from the title when captions are missing.
 
-If retrying does not help, [upload a timestamped transcript](transcripts/README.md) using GitHub's file-upload screen and run the update again. There is no automatic speech-to-text or paid transcript service in this version. Metadata retrieval can also fail independently; in that case the website identifies an unavailable creator description.
+If retrying does not help, [upload a timestamped transcript](transcripts/README.md) using GitHub's file-upload screen and run the update again. There is no automatic speech-to-text generation in this version. The optional Supadata service has its own account and pricing. Metadata retrieval can also fail independently; in that case the website identifies an unavailable creator description.
 
 ## Limits and troubleshooting
 
