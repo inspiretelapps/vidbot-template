@@ -4,6 +4,51 @@ Turn a YouTube playlist into a searchable website with summaries, takeaways, and
 
 [**Create your own library →**](https://github.com/inspiretelapps/vidbot-template/generate)
 
+## The simple version
+
+**Give it a YouTube playlist. Get your own website with easy-to-read video summaries.** Each summary includes the main takeaways and chapter links that jump to the right moment in the video.
+
+1. **Make your own copy** using the button above.
+2. **Connect the AI** with an OpenCode Zen API key — a private access code that lets the app generate summaries using your account.
+3. **Paste your playlist and run an update.** Your website is published for you. Share its link with anyone you want.
+
+You don't need to install anything or leave your computer running. When you want new summaries, click the refresh icon on your site and then **Run workflow** on GitHub.
+
+**You'll need:** a GitHub account, an OpenCode Zen account with access to your chosen model, and a public or unlisted YouTube playlist. You can choose Google Gemini or **DeepSeek V4.1 Flash**. AI usage may cost money. If YouTube blocks captions, you may also need a Supadata account, or you can upload a transcript yourself.
+
+**Your library is public.** Anyone with the link can read it, and the playlist links and saved summaries are visible in your public GitHub copy. Use a playlist you're happy to share.
+
+Prefer some help? Copy the prompt below into ChatGPT or Claude. If your assistant has connected GitHub tools or browser access, it can do the setup work it has permission to do. Otherwise, it can guide you through the clicks.
+
+## Copy this prompt into ChatGPT or Claude
+
+Copy the whole box and send it as a message. You don't need to change anything first.
+
+```text
+Help me set up my own YouSummary website from this template:
+https://github.com/inspiretelapps/vidbot-template
+
+I'm not technical. Read the current README and setup files first, then help me get a working website. Use plain language and keep explanations short.
+
+First, ask me for my GitHub username, my YouTube playlist link, and what I'd like to name my library. Check whether you have tools that can access my GitHub account. If you do, carry out the setup steps your access allows. If you don't, guide me through one small step at a time with clear links and button names. Never claim you changed a setting or deployed something unless you verified it.
+
+Create a new public repository in my account from the template, with an empty library. Work only in my new copy. I understand that the website, playlist links, and saved summaries will be public. If the name is already taken, ask before using an existing repository.
+
+Help me obtain an OpenCode Zen API key and save it as the GitHub repository secret OPENCODE_API_KEY. Don't ask me to paste keys into this chat or into a file; direct me to the secure GitHub settings page. I'll handle sign-in, account creation, and any payment details myself.
+
+Use DeepSeek V4.1 Flash unless I choose a Google Gemini option. Read the exact supported model IDs from the template's current update workflow. Use GitHub Pages for the website, with its publishing source set to GitHub Actions. Keep updates manual; no scheduled jobs or WhatsApp delivery.
+
+Test one video from my playlist first. If YouTube captions fail, explain the issue simply and help me choose between adding a Supadata key as SUPADATA_API_KEY or uploading a transcript. Explain any extra service costs before I enable it. Don't invent a summary when captions are unavailable.
+
+Run the first update when the required settings are ready. Check the run result, open the published website, and verify that a real summary and its chapter links are present. An empty website alone is not a completed test. If your tools cannot perform a step, tell me exactly what to click and continue once I've done it.
+
+Finish by giving me my website link, my GitHub repository link, and a short explanation of how to update my library next time. Clearly state anything that still needs my attention.
+```
+
+## Detailed setup and reference
+
+The sections below explain the individual settings and provide troubleshooting help. You can use them yourself or let your assistant follow them.
+
 ## Set up once — no coding
 
 1. **Create your copy.** Click the link above (or **Use this template → Create a new repository**). Choose a name, such as `my-video-library`, and choose **Public** for the simplest GitHub Free setup. Each copy starts with an empty library. Public repositories and their libraries are readable by anyone: unlisted YouTube links do not make this website private.
