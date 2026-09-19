@@ -4,13 +4,16 @@ Turn a YouTube playlist into a searchable website with summaries, takeaways, and
 
 [**Create your own library →**](https://github.com/inspiretelapps/vidbot-template/generate)
 
+New to GitHub? [Start here first](#start-here-if-youre-new-to-github).
+
 ## The simple version
 
 **Give it a YouTube playlist. Get your own website with easy-to-read video summaries.** Each summary includes the main takeaways and chapter links that jump to the right moment in the video.
 
-1. **Make your own copy** using the button above.
-2. **Connect the AI** with an OpenCode Zen API key — a private access code that lets the app generate summaries using your account.
-3. **Paste your playlist and run an update.** Your website is published for you. Share its link with anyone you want.
+1. **Create a free GitHub account** if you don’t already have one — follow the short guide below.
+2. **Make your own copy** using the button above.
+3. **Connect the AI** with an OpenCode Zen API key — a private access code that lets the app generate summaries using your account.
+4. **Paste your playlist and run an update.** Your website is published for you. Share its link with anyone you want.
 
 You don't need to install anything or leave your computer running. When you want new summaries, click the refresh icon on your site and then **Run workflow** on GitHub.
 
@@ -19,6 +22,26 @@ You don't need to install anything or leave your computer running. When you want
 **Your library is public.** Anyone with the link can read it, and the playlist links and saved summaries are visible in your public GitHub copy. Use a playlist you're happy to share.
 
 Prefer some help? Copy the prompt below into ChatGPT or Claude. If your assistant has connected GitHub tools or browser access, it can do the setup work it has permission to do. Otherwise, it can guide you through the clicks.
+
+## Start here if you're new to GitHub
+
+GitHub is the online home for your library. It stores your copy of this project, runs the updates, and publishes your website. You don't need to know how to code to use it.
+
+1. Open [github.com/signup](https://github.com/signup) and follow the steps to create a **free personal account**.
+2. Choose a username you'll be happy to see in your website address. For example, a username of `samreads` could give you `samreads.github.io/my-video-library/`.
+3. Complete the email verification and any other account checks GitHub asks for. Keep your password and verification codes private.
+4. Once you're signed in, come back here and click [**Create your own library**](https://github.com/inspiretelapps/vidbot-template/generate). You can also copy the assistant prompt below and let it guide you from this point.
+
+You don't need GitHub Desktop or any other software installed. The free GitHub plan supports the public setup described here; AI usage and any optional transcript service are separate costs.
+
+A few names you'll see during setup:
+
+- **Repository:** your project's folder on GitHub. Your own copy holds your library's files and settings.
+- **Actions:** the page where you start an update and see whether it finished.
+- **Pages:** the setting that publishes your library as a website.
+- **Secret:** a protected setting for an API key, so the app can use it without showing it publicly.
+
+If you get stuck creating your account, use [GitHub's account setup guide](https://docs.github.com/en/account-and-profile/how-tos/account-management/creating-an-account-on-github). People who only want to read your finished library do **not** need a GitHub account.
 
 ## Copy this prompt into ChatGPT or Claude
 
@@ -30,7 +53,9 @@ https://github.com/inspiretelapps/vidbot-template
 
 I'm not technical. Read the current README and setup files first, then help me get a working website. Use plain language and keep explanations short.
 
-First, ask me for my GitHub username, my YouTube playlist link, and what I'd like to name my library. Check whether you have tools that can access my GitHub account. If you do, carry out the setup steps your access allows. If you don't, guide me through one small step at a time with clear links and button names. Never claim you changed a setting or deployed something unless you verified it.
+First, ask whether I already have a GitHub account. If not, explain briefly what GitHub is and guide me through creating a free personal account at https://github.com/signup, including email verification. I'll enter passwords and verification codes myself; don't ask me to share them in chat. Don't assume I know terms such as repository, Actions, Pages, or secret — explain each simply when needed.
+
+Once my account is ready, ask me for my GitHub username, my YouTube playlist link, and what I'd like to name my library. Check whether you have tools that can access my GitHub account. If you do, carry out the setup steps your access allows. If you don't, guide me through one small step at a time with clear links and button names. Never claim you changed a setting or deployed something unless you verified it.
 
 Create a new public repository in my account from the template, with an empty library. Work only in my new copy. I understand that the website, playlist links, and saved summaries will be public. If the name is already taken, ask before using an existing repository.
 
@@ -50,6 +75,8 @@ Finish by giving me my website link, my GitHub repository link, and a short expl
 The sections below explain the individual settings and provide troubleshooting help. You can use them yourself or let your assistant follow them.
 
 ## Set up once — no coding
+
+Before you begin, sign in to GitHub. If you haven't created an account yet, follow [the beginner guide above](#start-here-if-youre-new-to-github).
 
 1. **Create your copy.** Click the link above (or **Use this template → Create a new repository**). Choose a name, such as `my-video-library`, and choose **Public** for the simplest GitHub Free setup. Each copy starts with an empty library. Public repositories and their libraries are readable by anyone: unlisted YouTube links do not make this website private.
 2. **Get your AI key.** Sign in to [OpenCode Zen](https://opencode.ai/auth), add credits if needed, and create an API key. This is a Zen API key, not a Google key, DeepSeek key, or a coding-agent subscription login. Model use is billed to your account. You do not need to install OpenCode.
