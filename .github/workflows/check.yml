@@ -1,0 +1,28 @@
+name: Check template
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: |
+          python -m unittest discover -s tests -v
+          node --test tests/*.test.mjs
+      - run: python scripts/render_site.py
+      - name: Validate website JavaScript
+        run: |
+          python -c "from pathlib import Path; s=Path('site/index.html').read_text(); Path('work/site.js').parent.mkdir(exist_ok=True); Path('work/site.js').write_text(s.rsplit('<script>', 1)[1].split('</script>')[0])"
+          node --check work/site.js
